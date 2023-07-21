@@ -29,7 +29,6 @@ const getPhotographer = async () => {
 
 const init = async () => {
   const data = await getPhotographer();
-  console.log(data);
 };
 
 init();
