@@ -1,5 +1,5 @@
 const photographerTemplate = (data) => {
-  const { name, portrait, city, country, price, tagline } = data;
+  const { name, portrait, city, country, price, tagline, id } = data;
   const picture = `assets/photographers/${portrait}`;
 
   function getUserCardDOM() {
@@ -10,7 +10,7 @@ const photographerTemplate = (data) => {
     const spanCitation = document.createElement("span");
     const spanPrice = document.createElement("span");
     img.setAttribute("src", picture);
-    a.setAttribute("href", "#");
+    a.setAttribute("href", `photographer.html?id=${id}`);
     const h2 = document.createElement("h2");
     h2.textContent = name;
     spanReside.textContent = `${city}, ${country}`;

@@ -2,9 +2,6 @@ const getPhotographers = async () => {
   try {
     const requete = await fetch("./data/photographers.json", {
       method: "GET",
-      headers: {
-        "Cache-Control": "no-cache",
-      },
     });
 
     if (requete.ok) {
@@ -29,7 +26,7 @@ const displayData = async (photographers) => {
 
   const body = document.querySelector(".pages");
   const loading = document.querySelector(".lds-roller");
-  body.style.display = "block"; // Afficher le contenu une fois que tout est prêt
+  body.style.display = "block";
   loading.style.display = "none";
 };
 
@@ -47,6 +44,4 @@ const init = async () => {
 
 spiner();
 
-setTimeout(() => {
-  init();
-}, 1000);
+setTimeout(init, 1500);
