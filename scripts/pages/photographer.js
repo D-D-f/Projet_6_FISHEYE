@@ -27,11 +27,23 @@ const getPhotographer = async () => {
   }
 };
 
+const spiner = () => {
+  const body = document.querySelector(".pages");
+  const loading = document.querySelector(".lds-roller");
+  body.style.display = "none";
+  loading.style.display = "flex";
+};
+
 const init = async () => {
   const data = await getPhotographer();
   const { photographer } = data;
   const { city, country, name, portrait, tagline } = photographer[0];
+  const body = document.querySelector(".pages");
+  const loading = document.querySelector(".lds-roller");
+  body.style.display = "block";
+  loading.style.display = "none";
   profil(name, portrait, city, country, tagline);
 };
 
-init();
+spiner();
+setTimeout(init, 1500);
