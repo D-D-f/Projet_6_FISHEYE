@@ -15,3 +15,20 @@ const profil = (name, link, city, country, citation) => {
   spanReside.textContent = `${city}, ${country}`;
   spanCitation.textContent = citation;
 };
+
+const allImage = (image, likes, title, name) => {
+  let containerImg = document.querySelector(".allImages");
+  const figure = document.createElement("figure");
+  const img = document.createElement("img");
+  const figCaption = document.createElement("figcaption");
+  const imgTitle = document.createElement("span");
+  const like = document.createElement("span");
+  like.setAttribute("aria-label", "likes");
+  img.setAttribute("src", `./assets/photo/${name}/${image}`);
+  containerImg.appendChild(figure);
+  figure.append(img, figCaption);
+  figCaption.append(imgTitle, like);
+
+  like.textContent = `${likes} ♥`;
+  imgTitle.textContent = title;
+};

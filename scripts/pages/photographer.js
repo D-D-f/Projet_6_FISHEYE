@@ -39,12 +39,53 @@ const filtreAllPopular = (like1, like2) => {
   return likeB - likeA;
 };
 
+const filtreAllTitle = (title1, title2) => {
+  const titleA = title1.title.toUpperCase();
+  const titleB = title2.title.toUpperCase();
+  if (titleB < titleA) {
+    return 1;
+  }
+  if (titleB > titleA) {
+    return -1;
+  }
+  return 0;
+};
+
+const filtreDisplay = (element, popular, date, title) => {
+  if (element.options.selectedIndex === 1) {
+    date;
+  } else if (element.options.selectedIndex === 2) {
+    title;
+  } else {
+    popular;
+  }
+};
+
 const filtres = (media) => {
   const filtre = document.querySelector("#filtre");
-  const filtreDate = media.sort(filtreAllDate);
-  const filtrePopular = media.sort(filtreAllPopular);
+  let containerImg = document.querySelector(".allImages");
 
-  filtre.addEventListener("change", (e) => {});
+  filtre.addEventListener("change", (e) => {
+    containerImg.innerHTML = "";
+
+    if (filtre.options.selectedIndex === 1) {
+      const filtreDate = media.sort(filtreAllDate);
+      filtreDate.forEach((element) => {
+        return allImage(element.image, element.likes, element.title, id);
+      });
+    } else if (filtre.options.selectedIndex === 2) {
+      const filtreTitle = media.sort(filtreAllTitle);
+      filtreTitle.forEach((element) => {
+        console.log(element);
+        return allImage(element.image, element.likes, element.title, id);
+      });
+    } else {
+      const filtrePopular = media.sort(filtreAllPopular);
+      filtrePopular.forEach((element) => {
+        return allImage(element.image, element.likes, element.title, id);
+      });
+    }
+  });
 };
 
 const spiner = () => {
@@ -58,7 +99,7 @@ const init = async () => {
   const data = await getPhotographer();
   const { photographer, media } = data;
   const { city, country, name, portrait, tagline } = photographer[0];
-  console.log(media);
+  const filtrePopular = media.sort(filtreAllPopular);
 
   //spiner
   const body = document.querySelector(".pages");
@@ -68,6 +109,11 @@ const init = async () => {
 
   // affichage profil
   profil(name, portrait, city, country, tagline);
+
+  // affichages image
+  filtrePopular.forEach((element) => {
+    allImage(element.image, element.likes, element.title, id);
+  });
 
   //filtrage des données
   filtres(media);

@@ -118,6 +118,28 @@ form input {
   border-radius: 5px;
 }
 
+.allImages {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.allImages figure {
+  width: 25%;
+  text-align: center;
+}
+
+.allImages figure img {
+  height: 300px;
+  width: 350px;
+  object-fit: cover;
+}
+
+.allImages figure figcaption {
+  display: flex;
+  justify-content: space-between;
+  color: #901c1c;
+}
+
 .lds-roller {
   display: none;
   width: 100%;
