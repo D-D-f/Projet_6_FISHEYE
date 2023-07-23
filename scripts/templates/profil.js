@@ -16,19 +16,33 @@ const profil = (name, link, city, country, citation) => {
   spanCitation.textContent = citation;
 };
 
-const allImage = (image, likes, title, name) => {
+const allImage = (image, likes, title, video, name) => {
   let containerImg = document.querySelector(".allImages");
-  const figure = document.createElement("figure");
-  const img = document.createElement("img");
-  const figCaption = document.createElement("figcaption");
-  const imgTitle = document.createElement("span");
-  const like = document.createElement("span");
-  like.setAttribute("aria-label", "likes");
-  img.setAttribute("src", `./assets/photo/${name}/${image}`);
-  containerImg.appendChild(figure);
-  figure.append(img, figCaption);
-  figCaption.append(imgTitle, like);
-
-  like.textContent = `${likes} ♥`;
-  imgTitle.textContent = title;
+  if (video !== undefined) {
+    const videos = document.createElement("video");
+    const div = document.createElement("div");
+    const blockDiv = document.createElement("div");
+    const imgTitle = document.createElement("span");
+    const like = document.createElement("span");
+    like.textContent = `${likes} ♥`;
+    imgTitle.textContent = title;
+    videos.setAttribute("src", `assets/photo/${name}/${video}`);
+    videos.setAttribute("controls", "");
+    div.append(videos, blockDiv);
+    blockDiv.append(imgTitle, like);
+    containerImg.append(div);
+  } else {
+    const figure = document.createElement("figure");
+    const img = document.createElement("img");
+    const figCaption = document.createElement("figcaption");
+    const imgTitle = document.createElement("span");
+    const like = document.createElement("span");
+    like.setAttribute("aria-label", "likes");
+    img.setAttribute("src", `./assets/photo/${name}/${image}`);
+    containerImg.appendChild(figure);
+    figure.append(img, figCaption);
+    figCaption.append(imgTitle, like);
+    like.textContent = `${likes} ♥`;
+    imgTitle.textContent = title;
+  }
 };

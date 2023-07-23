@@ -51,38 +51,45 @@ const filtreAllTitle = (title1, title2) => {
   return 0;
 };
 
-const filtreDisplay = (element, popular, date, title) => {
-  if (element.options.selectedIndex === 1) {
-    date;
-  } else if (element.options.selectedIndex === 2) {
-    title;
-  } else {
-    popular;
-  }
-};
-
 const filtres = (media) => {
   const filtre = document.querySelector("#filtre");
   let containerImg = document.querySelector(".allImages");
 
-  filtre.addEventListener("change", (e) => {
+  filtre.addEventListener("change", () => {
     containerImg.innerHTML = "";
 
     if (filtre.options.selectedIndex === 1) {
       const filtreDate = media.sort(filtreAllDate);
       filtreDate.forEach((element) => {
-        return allImage(element.image, element.likes, element.title, id);
+        return allImage(
+          element.image,
+          element.likes,
+          element.title,
+          element.video,
+          id
+        );
       });
     } else if (filtre.options.selectedIndex === 2) {
       const filtreTitle = media.sort(filtreAllTitle);
       filtreTitle.forEach((element) => {
-        console.log(element);
-        return allImage(element.image, element.likes, element.title, id);
+        return allImage(
+          element.image,
+          element.likes,
+          element.title,
+          element.video,
+          id
+        );
       });
     } else {
       const filtrePopular = media.sort(filtreAllPopular);
       filtrePopular.forEach((element) => {
-        return allImage(element.image, element.likes, element.title, id);
+        return allImage(
+          element.image,
+          element.likes,
+          element.title,
+          element.video,
+          id
+        );
       });
     }
   });
@@ -112,7 +119,7 @@ const init = async () => {
 
   // affichages image
   filtrePopular.forEach((element) => {
-    allImage(element.image, element.likes, element.title, id);
+    allImage(element.image, element.likes, element.title, element.video, id);
   });
 
   //filtrage des données
