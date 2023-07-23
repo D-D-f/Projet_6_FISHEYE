@@ -127,4 +127,4 @@ const init = async () => {
 };
 
 spiner();
-setTimeout(init, 1500);
+setTimeout(init, 2000);
