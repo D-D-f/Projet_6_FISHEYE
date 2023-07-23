@@ -29,6 +29,9 @@ const getPhotographer = async () => {
 
 const init = async () => {
   const data = await getPhotographer();
+  const { photographer } = data;
+  const { city, country, name, portrait, tagline } = photographer[0];
+  profil(name, portrait, city, country, tagline);
 };
 
 init();
