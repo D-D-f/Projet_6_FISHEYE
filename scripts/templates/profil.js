@@ -29,6 +29,7 @@ const allImage = (image, likes, title, video, name) => {
     videos.setAttribute("src", `assets/photo/${name}/${video}`);
     videos.setAttribute("controls", "");
     div.append(videos, blockDiv);
+    div.classList.add("containerVideo");
     blockDiv.append(imgTitle, like);
     containerImg.append(div);
   } else {
