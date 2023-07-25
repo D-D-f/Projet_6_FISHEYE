@@ -182,6 +182,42 @@ form input {
   font-weight: bold;
 }
 
+.caroussel {
+  display: none;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.closeCaroussel {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 30px;
+  padding-top: 30px;
+}
+
+.containerCaroussel {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+
+#closeCarou {
+  cursor: pointer;
+}
+
+.arrowLeft img,
+.arrowRight img {
+  height: 100px;
+  width: 100px;
+  cursor: pointer;
+}
+
+#imgCaroussel {
+  width: 800px;
+  height: 800px;
+}
+
 .lds-roller {
   display: none;
   width: 100%;

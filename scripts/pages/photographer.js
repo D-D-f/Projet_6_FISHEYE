@@ -1,5 +1,6 @@
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
+let imageForCaroussel = [];
 
 const fixed = (like, price) => {
   const prices = document.querySelector(".price");
@@ -7,6 +8,60 @@ const fixed = (like, price) => {
 
   likes.textContent = `${like} ♥`;
   prices.textContent = `${price}€/ jour`;
+};
+
+const caroussel = () => {
+  const image = document.querySelectorAll(".allImages > figure > img");
+  const left = document.querySelector(".arrowLeft > img");
+  const right = document.querySelector(".arrowRight > img");
+  const baliseImg = document.querySelector("#imgCaroussel");
+  const caroussel = document.querySelector(".caroussel");
+  const pages = document.querySelector(".pages");
+  const closeCaroussel = document.querySelector("#closeCarou");
+
+  closeCaroussel.addEventListener("click", () => {
+    pages.style.display = "block";
+    caroussel.style.display = "none";
+  });
+
+  image.forEach((img) => {
+    img.addEventListener("click", () => {
+      pages.style.display = "none";
+      caroussel.style.display = "block";
+      baliseImg.src = img.src;
+    });
+  });
+
+  right.addEventListener("click", () => {
+    let idx;
+    image.forEach((element, index) => {
+      if (element.src === baliseImg.src) {
+        idx = index;
+      }
+    });
+    if (Number(image.length - 1) === idx) {
+      idx = 0;
+    } else {
+      idx++;
+    }
+    baliseImg.src = image[idx].src;
+  });
+
+  left.addEventListener("click", () => {
+    let idx;
+    image.forEach((element, index) => {
+      if (element.src === baliseImg.src) {
+        idx = index;
+      }
+    });
+    console.log(idx, image.length - 1);
+    if (idx === 0) {
+      idx = Number(image.length - 1);
+    } else {
+      idx--;
+    }
+    baliseImg.src = image[idx].src;
+  });
 };
 
 const getPhotographer = async () => {
@@ -62,6 +117,7 @@ const filtreAllTitle = (title1, title2) => {
 const filtres = (media) => {
   const filtre = document.querySelector("#filtre");
   let containerImg = document.querySelector(".allImages");
+  caroussel();
 
   filtre.addEventListener("change", () => {
     containerImg.innerHTML = "";
@@ -100,6 +156,7 @@ const filtres = (media) => {
         );
       });
     }
+    caroussel();
   });
 };
 
@@ -128,6 +185,10 @@ const init = async () => {
 
   // affichages image
   filtrePopular.forEach((element) => {
+    if (element.video) {
+      imageForCaroussel.push(element.video);
+    }
+    imageForCaroussel.push(element.image);
     allImage(element.image, element.likes, element.title, element.video, id);
     resultLike += element.likes;
   });
