@@ -166,6 +166,22 @@ form input {
   color: #901c1c;
 }
 
+.PriceDay {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  right: 30px;
+  height: 46px;
+  width: 300px;
+  padding: 10px;
+  border-top-right-radius: 5px;
+  border-top-right-radius: 5px;
+  background: #db8876;
+  font-weight: bold;
+}
+
 .lds-roller {
   display: none;
   width: 100%;

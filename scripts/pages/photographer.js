@@ -1,6 +1,14 @@
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
+const fixed = (like, price) => {
+  const prices = document.querySelector(".price");
+  const likes = document.querySelector(".like");
+
+  likes.textContent = `${like} ♥`;
+  prices.textContent = `${price}€/ jour`;
+};
+
 const getPhotographer = async () => {
   try {
     const requete = await fetch("./data/photographers.json", {
@@ -107,6 +115,7 @@ const init = async () => {
   const { photographer, media } = data;
   const { city, country, name, portrait, tagline } = photographer[0];
   const filtrePopular = media.sort(filtreAllPopular);
+  let resultLike = 0;
 
   //spiner
   const body = document.querySelector(".pages");
@@ -120,10 +129,14 @@ const init = async () => {
   // affichages image
   filtrePopular.forEach((element) => {
     allImage(element.image, element.likes, element.title, element.video, id);
+    resultLike += element.likes;
   });
 
   //filtrage des données
   filtres(media);
+
+  //barre fixé en bas
+  fixed(resultLike, media[0].price);
 };
 
 spiner();
