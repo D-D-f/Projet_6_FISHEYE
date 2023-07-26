@@ -42,6 +42,5 @@ const init = async () => {
   await displayData(photographers);
 };
 
-spiner();
-
 setTimeout(init, 2000);
+spiner();
