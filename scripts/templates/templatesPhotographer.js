@@ -1,5 +1,4 @@
 const profil = (name, link, city, country, citation) => {
-  const linkImg = `./assets/photographers/${link}`;
   const parentProfil = document.querySelector(".photograph-header");
   const btnProfil = document.querySelector(".contact_button");
   const h1 = document.createElement("h1");
@@ -7,7 +6,7 @@ const profil = (name, link, city, country, citation) => {
   const divName = document.createElement("div");
   const spanReside = document.createElement("span");
   const spanCitation = document.createElement("span");
-  img.setAttribute("src", linkImg);
+  img.setAttribute("src", `./assets/photographers/${link}`);
   divName.append(h1, spanReside, spanCitation);
   parentProfil.insertBefore(divName, btnProfil);
   parentProfil.append(img);
@@ -16,9 +15,26 @@ const profil = (name, link, city, country, citation) => {
   spanCitation.textContent = citation;
 };
 
-const allImage = (image, likes, title, video, name) => {
-  let containerImg = document.querySelector(".allImages");
-  if (video !== undefined) {
+const profilMedia = (video, linkImg, title, likes, id, index, array) => {
+  const container = document.querySelector(".container_media ");
+
+  if (video === undefined) {
+    const figure = document.createElement("figure");
+    const img = document.createElement("img");
+    const figCaption = document.createElement("figcaption");
+    const divCaption = document.createElement("div");
+    const spanTitle = document.createElement("span");
+    const spanLike = document.createElement("span");
+    img.setAttribute("src", `./assets/photo/${id}/${linkImg}`);
+    img.addEventListener("click", () => openCaroussel(array, index));
+    container.appendChild(img);
+    spanTitle.textContent = title;
+    spanLike.textContent = `${likes} ♥`;
+    container.appendChild(figure);
+    divCaption.append(spanTitle, spanLike);
+    figCaption.appendChild(divCaption);
+    figure.append(img, figCaption);
+  } else {
     const videos = document.createElement("video");
     const div = document.createElement("div");
     const blockDiv = document.createElement("div");
@@ -26,24 +42,11 @@ const allImage = (image, likes, title, video, name) => {
     const like = document.createElement("span");
     like.textContent = `${likes} ♥`;
     imgTitle.textContent = title;
-    videos.setAttribute("src", `assets/photo/${name}/${video}`);
+    videos.setAttribute("src", `assets/photo/${id}/${video}`);
     videos.setAttribute("controls", "");
     div.append(videos, blockDiv);
     div.classList.add("containerVideo");
     blockDiv.append(imgTitle, like);
-    containerImg.append(div);
-  } else {
-    const figure = document.createElement("figure");
-    const img = document.createElement("img");
-    const figCaption = document.createElement("figcaption");
-    const imgTitle = document.createElement("span");
-    const like = document.createElement("span");
-    like.setAttribute("aria-label", "likes");
-    img.setAttribute("src", `./assets/photo/${name}/${image}`);
-    containerImg.appendChild(figure);
-    figure.append(img, figCaption);
-    figCaption.append(imgTitle, like);
-    like.textContent = `${likes} ♥`;
-    imgTitle.textContent = title;
+    container.append(div);
   }
 };

@@ -11,16 +11,6 @@
     <title>Fisheye - photographe</title>
   </head>
   <body>
-    <div class="lds-roller">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
     <div class="caroussel">
       <div class="closeCaroussel">
         <img id="closeCarou" src="./assets/icons/close.svg" alt="close" />
@@ -32,6 +22,7 @@
             alt="arrow left"
           />
         </div>
+        <video id="video" controls src=""></video>
         <img id="imgCaroussel" src="" alt="image photographe" />
         <div class="arrowRight">
           <img
@@ -41,11 +32,10 @@
         </div>
       </div>
     </div>
+
     <div class="pages">
       <header>
-        <a href="index.html">
-          <img src="assets/images/logo.png" class="logo" />
-        </a>
+        <img src="assets/images/logo.png" class="logo" />
       </header>
       <main id="main">
         <div class="photograph-header">
@@ -53,14 +43,16 @@
             Contactez-moi
           </button>
         </div>
-        <label for="filtre">Trier par</label>
-        <select name="filtre" id="filtre">
-          <option value="Popular">Popularité</option>
-          <option value="date">Date</option>
-          <option value="title">Titre</option>
-        </select>
+        <section>
+          <label for="filter">Trier par :</label>
+          <select name="filter" id="filter">
+            <option value="popular">Popularité</option>
+            <option value="date">Date</option>
+            <option value="title">Titre</option>
+          </select>
 
-        <section class="allImages"></section>
+          <div class="container_media"></div>
+        </section>
       </main>
       <div id="contact_modal">
         <div class="modal">
@@ -77,14 +69,10 @@
           </form>
         </div>
       </div>
-      <div class="PriceDay">
-        <div class="like"></div>
-        <div class="price"></div>
-      </div>
     </div>
 
+    <script src="/scripts/templates/templatesPhotographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
-    <script src="./scripts/templates/profil.js"></script>
     <script src="/scripts/pages/photographer.js"></script>
   </body>
 </html>
