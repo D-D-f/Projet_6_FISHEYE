@@ -1,70 +1,9 @@
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
-let imageForCaroussel = [];
+const select = document.querySelector("#filter");
+const container = document.querySelector(".container_media");
 
-const fixed = (like, price) => {
-  const prices = document.querySelector(".price");
-  const likes = document.querySelector(".like");
-
-  likes.textContent = `${like} ♥`;
-  prices.textContent = `${price}€/ jour`;
-};
-
-const caroussel = () => {
-  const image = document.querySelectorAll(".allImages > figure > img");
-  const left = document.querySelector(".arrowLeft > img");
-  const right = document.querySelector(".arrowRight > img");
-  const baliseImg = document.querySelector("#imgCaroussel");
-  const caroussel = document.querySelector(".caroussel");
-  const pages = document.querySelector(".pages");
-  const closeCaroussel = document.querySelector("#closeCarou");
-
-  closeCaroussel.addEventListener("click", () => {
-    pages.style.display = "block";
-    caroussel.style.display = "none";
-  });
-
-  image.forEach((img) => {
-    img.addEventListener("click", () => {
-      pages.style.display = "none";
-      caroussel.style.display = "block";
-      baliseImg.src = img.src;
-    });
-  });
-
-  right.addEventListener("click", () => {
-    let idx;
-    image.forEach((element, index) => {
-      if (element.src === baliseImg.src) {
-        idx = index;
-      }
-    });
-    if (Number(image.length - 1) === idx) {
-      idx = 0;
-    } else {
-      idx++;
-    }
-    baliseImg.src = image[idx].src;
-  });
-
-  left.addEventListener("click", () => {
-    let idx;
-    image.forEach((element, index) => {
-      if (element.src === baliseImg.src) {
-        idx = index;
-      }
-    });
-    console.log(idx, image.length - 1);
-    if (idx === 0) {
-      idx = Number(image.length - 1);
-    } else {
-      idx--;
-    }
-    baliseImg.src = image[idx].src;
-  });
-};
-
-const getPhotographer = async () => {
+const getPhotographers = async () => {
   try {
     const requete = await fetch("./data/photographers.json", {
       method: "GET",
@@ -72,17 +11,15 @@ const getPhotographer = async () => {
 
     if (requete.ok) {
       const data = await requete.json();
-      const { media, photographers } = data;
-      const mediaPhotographer = media.filter(
-        (user) => user.photographerId === Number(id)
+      const photographers = data.photographers.filter(
+        (profil) => profil.id === Number(id)
       );
-      const photographerId = photographers.filter(
-        (user) => user.id === Number(id)
+      const media = data.media.filter(
+        (profil) => profil.photographerId === Number(id)
       );
-
       return {
-        media: [...mediaPhotographer],
-        photographer: [...photographerId],
+        photographers: [...photographers],
+        media: [...media],
       };
     }
   } catch (e) {
@@ -114,91 +51,170 @@ const filtreAllTitle = (title1, title2) => {
   return 0;
 };
 
-const filtres = (media) => {
-  const filtre = document.querySelector("#filtre");
-  let containerImg = document.querySelector(".allImages");
-  caroussel();
+const display = (array, index) => {
+  if (index === 0) {
+    array.sort(filtreAllPopular);
+  } else if (index === 1) {
+    array.sort(filtreAllDate);
+  } else if (index === 2) {
+    array.sort(filtreAllTitle);
+  }
+  array.forEach((element, index) => {
+    profilMedia(
+      element.video,
+      element.image,
+      element.title,
+      element.likes,
+      id,
+      index,
+      array
+    );
+  });
+};
 
-  filtre.addEventListener("change", () => {
-    containerImg.innerHTML = "";
+const caroussel = (array, index) => {
+  let images = [];
+  const imgCaroussel = document.querySelector("#imgCaroussel");
+  const closeCaroussel = document.querySelector("#closeCarou");
+  const caroussel = document.querySelector(".caroussel");
+  const pages = document.querySelector(".pages");
+  const video = document.querySelector("#video");
+  const left = document.querySelector(".arrowLeft > img");
+  const right = document.querySelector(".arrowRight > img");
+  const mp4Links = images.filter((link) => link.endsWith(".mp4"));
+  const indexVideo = images.indexOf(...mp4Links);
 
-    if (filtre.options.selectedIndex === 1) {
-      const filtreDate = media.sort(filtreAllDate);
-      filtreDate.forEach((element) => {
-        return allImage(
-          element.image,
-          element.likes,
-          element.title,
-          element.video,
-          id
-        );
-      });
-    } else if (filtre.options.selectedIndex === 2) {
-      const filtreTitle = media.sort(filtreAllTitle);
-      filtreTitle.forEach((element) => {
-        return allImage(
-          element.image,
-          element.likes,
-          element.title,
-          element.video,
-          id
-        );
-      });
+  right.addEventListener("click", () => {
+    const mp4Links = images.filter((link) => link.endsWith(".mp4"));
+    const indexVideo = images.indexOf(...mp4Links);
+    if (index === images.length - 1) {
+      index = 0;
+      if (indexVideo === index) {
+        imgCaroussel.style.display = "none";
+        video.style.display = "block";
+        video.src = `./assets/photo/${id}/${images[index]}`;
+      } else {
+        imgCaroussel.style.display = "block";
+        video.style.display = "none";
+        console.log(imgCaroussel);
+        imgCaroussel.src = `./assets/photo/${id}/${images[index]}`;
+      }
     } else {
-      const filtrePopular = media.sort(filtreAllPopular);
-      filtrePopular.forEach((element) => {
-        return allImage(
-          element.image,
-          element.likes,
-          element.title,
-          element.video,
-          id
-        );
-      });
+      index++;
+      if (indexVideo === index) {
+        imgCaroussel.style.display = "none";
+        video.style.display = "block";
+        video.src = `./assets/photo/${id}/${images[index]}`;
+      } else {
+        imgCaroussel.style.display = "block";
+        video.style.display = "none";
+        console.log(imgCaroussel);
+        imgCaroussel.src = `./assets/photo/${id}/${images[index]}`;
+      }
     }
-    caroussel();
+  });
+
+  left.addEventListener("click", () => {
+    const mp4Links = images.filter((link) => link.endsWith(".mp4"));
+    const indexVideo = images.indexOf(...mp4Links);
+    if (index === 0) {
+      index = images.length - 1;
+      if (indexVideo === index) {
+        imgCaroussel.style.display = "none";
+        video.style.display = "block";
+        video.src = `./assets/photo/${id}/${images[index]}`;
+      } else {
+        imgCaroussel.style.display = "block";
+        video.style.display = "none";
+        console.log(imgCaroussel);
+        imgCaroussel.src = `./assets/photo/${id}/${images[index]}`;
+      }
+    } else {
+      index--;
+      if (indexVideo === index) {
+        imgCaroussel.style.display = "none";
+        video.style.display = "block";
+        video.src = `./assets/photo/${id}/${images[index]}`;
+      } else {
+        imgCaroussel.style.display = "block";
+        video.style.display = "none";
+        console.log(imgCaroussel);
+        imgCaroussel.src = `./assets/photo/${id}/${images[index]}`;
+      }
+    }
+  });
+
+  closeCaroussel.addEventListener("click", () => {
+    pages.style.display = "block";
+    caroussel.style.display = "none";
+  });
+
+  array.forEach((item) => {
+    if (item.video !== undefined) {
+      images.push(item.video);
+    } else {
+      images.push(item.image);
+    }
+  });
+
+  if (indexVideo === index) {
+    imgCaroussel.style.display = "none";
+    video.style.display = "block";
+    video.src = `./assets/photo/${id}/${images[index]}`;
+  } else {
+    imgCaroussel.style.display = "block";
+    video.style.display = "none";
+    console.log(imgCaroussel);
+    imgCaroussel.src = `./assets/photo/${id}/${images[index]}`;
+  }
+};
+
+const openCaroussel = (array, index) => {
+  const pages = document.querySelector(".pages");
+  const carousel = document.querySelector(".caroussel");
+  pages.style.display = "none";
+  carousel.style.display = "block";
+  caroussel(array, index);
+};
+
+const displayProfil = async () => {
+  const getProfil = await getPhotographers();
+  const { photographers } = getProfil;
+
+  photographers.forEach((information) => {
+    profil(
+      information.name,
+      information.portrait,
+      information.city,
+      information.country,
+      information.tagline
+    );
   });
 };
 
-const spiner = () => {
-  const body = document.querySelector(".pages");
-  const loading = document.querySelector(".lds-roller");
-  body.style.display = "none";
-  loading.style.display = "flex";
-};
+const displayMediaProfil = async () => {
+  const getMedia = await getPhotographers();
+  const { media } = getMedia;
+  const container = document.querySelector(".container_media");
+  media.sort(filtreAllPopular);
 
-const init = async () => {
-  const data = await getPhotographer();
-  const { photographer, media } = data;
-  const { city, country, name, portrait, tagline } = photographer[0];
-  const filtrePopular = media.sort(filtreAllPopular);
-  let resultLike = 0;
-
-  //spiner
-  const body = document.querySelector(".pages");
-  const loading = document.querySelector(".lds-roller");
-  body.style.display = "block";
-  loading.style.display = "none";
-
-  // affichage profil
-  profil(name, portrait, city, country, tagline);
-
-  // affichages image
-  filtrePopular.forEach((element) => {
-    if (element.video) {
-      imageForCaroussel.push(element.video);
-    }
-    imageForCaroussel.push(element.image);
-    allImage(element.image, element.likes, element.title, element.video, id);
-    resultLike += element.likes;
+  media.forEach((item, index) => {
+    profilMedia(
+      item.video,
+      item.image,
+      item.title,
+      item.likes,
+      id,
+      index,
+      media
+    );
   });
 
-  //filtrage des données
-  filtres(media);
-
-  //barre fixé en bas
-  fixed(resultLike, media[0].price);
+  select.addEventListener("change", () => {
+    container.innerHTML = "";
+    display(media, select.options.selectedIndex);
+  });
 };
 
-spiner();
-setTimeout(init, 2000);
+displayProfil();
+displayMediaProfil();
