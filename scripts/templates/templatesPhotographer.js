@@ -34,6 +34,8 @@ const profilMedia = (video, linkImg, title, likes, id, index, array) => {
     divCaption.append(spanTitle, spanLike);
     figCaption.appendChild(divCaption);
     figure.append(img, figCaption);
+    addLike(spanLike, likes);
+    spanLike.style.cursor = "pointer";
   } else {
     const videos = document.createElement("video");
     const div = document.createElement("div");
@@ -48,5 +50,7 @@ const profilMedia = (video, linkImg, title, likes, id, index, array) => {
     div.classList.add("containerVideo");
     blockDiv.append(imgTitle, like);
     container.append(div);
+    addLike(like, likes);
+    like.style.cursor = "pointer";
   }
 };

@@ -177,6 +177,18 @@ const openCaroussel = (array, index) => {
   caroussel(array, index);
 };
 
+const addLike = (element, like) => {
+  element.addEventListener("click", () => {
+    let nblike = like;
+    if (nblike === like + 1) {
+      return;
+    } else {
+      nblike++;
+      element.textContent = `${nblike} ♥`;
+    }
+  });
+};
+
 const displayProfil = async () => {
   const getProfil = await getPhotographers();
   const { photographers } = getProfil;
