@@ -39,8 +39,10 @@ const spiner = () => {
 
 const init = async () => {
   const { photographers } = await getPhotographers();
-  await displayData(photographers);
+  setTimeout(() => {
+    displayData(photographers);
+  }, 1000);
 };
 
-setTimeout(init, 2000);
 spiner();
+init();

@@ -213,7 +213,6 @@ const displayProfil = async () => {
 const displayMediaProfil = async () => {
   const getMedia = await getPhotographers();
   const { media, photographers } = getMedia;
-  console.log(photographers);
   const container = document.querySelector(".container_media");
   const allLikes = document.querySelector(".alllikes");
   const priceDay = document.querySelector(".priceday");
@@ -221,7 +220,6 @@ const displayMediaProfil = async () => {
   let arrayLikes = [];
   media.forEach((item, index) => {
     arrayLikes.push(item.likes);
-    console.log(item);
     profilMedia(
       item.video,
       item.image,
@@ -242,5 +240,22 @@ const displayMediaProfil = async () => {
   });
 };
 
-displayProfil();
-displayMediaProfil();
+const spiner = () => {
+  const body = document.querySelector(".pages");
+  const loading = document.querySelector(".lds-roller");
+  body.style.display = "none";
+  loading.style.display = "flex";
+};
+
+const init = () => {
+  displayProfil();
+  displayMediaProfil();
+
+  const body = document.querySelector(".pages");
+  const loading = document.querySelector(".lds-roller");
+  body.style.display = "block";
+  loading.style.display = "none";
+};
+
+spiner();
+setTimeout(init, 1000);

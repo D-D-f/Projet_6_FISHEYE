@@ -7,6 +7,7 @@ const profil = (name, link, city, country, citation) => {
   const spanReside = document.createElement("span");
   const spanCitation = document.createElement("span");
   img.setAttribute("src", `./assets/photographers/${link}`);
+  img.setAttribute("alt", name);
   divName.append(h1, spanReside, spanCitation);
   parentProfil.insertBefore(divName, btnProfil);
   parentProfil.append(img);
@@ -26,6 +27,7 @@ const profilMedia = (video, linkImg, title, likes, id, index, array) => {
     const spanTitle = document.createElement("span");
     const spanLike = document.createElement("span");
     img.setAttribute("src", `./assets/photo/${id}/${linkImg}`);
+    img.setAttribute("alt", name);
     img.addEventListener("click", () => openCaroussel(array, index));
     container.appendChild(img);
     spanTitle.textContent = title;

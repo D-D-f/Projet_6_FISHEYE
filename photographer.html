@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="assets/favicon.png" />
     <link
       href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
@@ -11,6 +12,16 @@
     <title>Fisheye - photographe</title>
   </head>
   <body>
+    <div class="lds-roller">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
     <div class="caroussel">
       <div class="closeCaroussel">
         <img id="closeCarou" src="./assets/icons/close.svg" alt="close" />
@@ -40,7 +51,8 @@
       </div>
       <header>
         <a href="index.html">
-          <img src="assets/images/logo.png" class="logo" />
+          <span>revenir a l'index</span>
+          <img src="assets/images/logo.png" class="logo" alt="logo" />
         </a>
       </header>
       <main id="main">
@@ -51,7 +63,7 @@
         </div>
         <section>
           <label for="filter">Trier par :</label>
-          <select name="filter" id="filter">
+          <select class="custom-select" name="filter" id="filter">
             <option value="popular">Popularité</option>
             <option value="date">Date</option>
             <option value="title">Titre</option>
@@ -60,20 +72,51 @@
           <div class="container_media"></div>
         </section>
       </main>
-      <div id="contact_modal">
-        <div class="modal">
-          <header>
-            <h2>Contactez-moi</h2>
-            <img src="assets/icons/close.svg" onclick="closeModal()" />
-          </header>
-          <form>
-            <div>
-              <label>Prénom</label>
-              <input />
-            </div>
-            <button class="contact_button">Envoyer</button>
-          </form>
-        </div>
+    </div>
+
+    <div id="contact_modal">
+      <div class="modal">
+        <header>
+          <h2>Contactez-moi</h2>
+          <div onclick="closeModal()">
+            <svg
+              width="42"
+              height="42"
+              viewBox="0 0 42 42"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M42 4.23L37.77 0L21 16.77L4.23 0L0 4.23L16.77 21L0 37.77L4.23 42L21 25.23L37.77 42L42 37.77L25.23 21L42 4.23Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+        </header>
+        <form>
+          <p>
+            <label for="name">Prénom</label>
+            <input type="text" name="name" id="name" />
+          </p>
+          <p>
+            <label for="lastname">Nom</label>
+            <input type="text" name="lastname" id="lastname" />
+          </p>
+          <p>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" />
+          </p>
+          <p>
+            <label for="message">Votre message</label>
+            <textarea
+              name="message"
+              id="message"
+              cols="30"
+              rows="10"
+            ></textarea>
+          </p>
+          <button class="contact_button">Envoyer</button>
+        </form>
       </div>
     </div>
 
