@@ -10,6 +10,7 @@ const photographerTemplate = (data) => {
     const spanCitation = document.createElement("span");
     const spanPrice = document.createElement("span");
     img.setAttribute("src", picture);
+    img.setAttribute("alt", name);
     a.setAttribute("href", `photographer.html?id=${id}`);
     const h2 = document.createElement("h2");
     h2.textContent = name;
