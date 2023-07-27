@@ -226,3 +226,16 @@ select option {
   height: 800px;
   display: none;
 }
+
+.likeday {
+  width: 376px;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0px;
+  right: 40px;
+  background-color: #db8876;
+  padding: 20px 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}

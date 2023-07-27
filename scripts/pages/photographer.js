@@ -178,14 +178,20 @@ const openCaroussel = (array, index) => {
 };
 
 const addLike = (element, like) => {
-  element.addEventListener("click", () => {
+  const allLikes = document.querySelector(".alllikes");
+
+  element.addEventListener("click", function addCount() {
+    const getLike = allLikes.textContent.split(" ");
     let nblike = like;
-    if (nblike === like + 1) {
-      return;
-    } else {
+    let allLike = Number(getLike[0]);
+
+    if (nblike === like) {
       nblike++;
+      allLike += 1;
+      allLikes.textContent = `${allLike} ♥`;
       element.textContent = `${nblike} ♥`;
     }
+    this.removeEventListener("click", addCount);
   });
 };
 
@@ -206,11 +212,16 @@ const displayProfil = async () => {
 
 const displayMediaProfil = async () => {
   const getMedia = await getPhotographers();
-  const { media } = getMedia;
+  const { media, photographers } = getMedia;
+  console.log(photographers);
   const container = document.querySelector(".container_media");
+  const allLikes = document.querySelector(".alllikes");
+  const priceDay = document.querySelector(".priceday");
   media.sort(filtreAllPopular);
-
+  let arrayLikes = [];
   media.forEach((item, index) => {
+    arrayLikes.push(item.likes);
+    console.log(item);
     profilMedia(
       item.video,
       item.image,
@@ -222,6 +233,9 @@ const displayMediaProfil = async () => {
     );
   });
 
+  const resultLikes = arrayLikes.reduce((acc, resultat) => acc + resultat);
+  allLikes.innerHTML = `${resultLikes} <span>♥</span>`;
+  priceDay.textContent = `${photographers[0].price}€/ jour`;
   select.addEventListener("change", () => {
     container.innerHTML = "";
     display(media, select.options.selectedIndex);
