@@ -1,3 +1,4 @@
+// Récupération des données
 const getPhotographers = async () => {
   try {
     const requete = await fetch("./data/photographers.json", {
@@ -16,6 +17,7 @@ const getPhotographers = async () => {
   }
 };
 
+// Affichage des données sur la page d'accueil
 const displayData = async (photographers) => {
   const photographersSection = document.querySelector(".photographer_section");
   photographers.forEach((photographer) => {
@@ -29,14 +31,14 @@ const displayData = async (photographers) => {
   body.style.display = "block";
   loading.style.display = "none";
 };
-
+// Lancement d'un spiner
 const spiner = () => {
   const body = document.querySelector(".pages");
   const loading = document.querySelector(".lds-roller");
   body.style.display = "none";
   loading.style.display = "flex";
 };
-
+// Container des fonction ainsi qu'un time out avant delancer l'affichage
 const init = async () => {
   const { photographers } = await getPhotographers();
   setTimeout(() => {

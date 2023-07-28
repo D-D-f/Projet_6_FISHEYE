@@ -1,3 +1,4 @@
+// Fonction qui permet d'afficher les informations du photographe dans la page d'accueil
 const photographerTemplate = (data) => {
   const { name, portrait, city, country, price, tagline, id } = data;
   const picture = `./assets/photographers/${portrait}`;

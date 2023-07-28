@@ -1,3 +1,4 @@
+// Fonction qui permet d'afficher le profil du photographe dans la page photographe.html
 const profil = (name, link, city, country, citation) => {
   const parentProfil = document.querySelector(".photograph-header");
   const btnProfil = document.querySelector(".contact_button");
@@ -15,7 +16,7 @@ const profil = (name, link, city, country, citation) => {
   spanReside.textContent = `${city}, ${country}`;
   spanCitation.textContent = citation;
 };
-
+// fonction qui permet d'afficher les images et vidéo du photographe selon son id
 const profilMedia = (video, linkImg, title, likes, id, index, array) => {
   const container = document.querySelector(".container_media ");
 

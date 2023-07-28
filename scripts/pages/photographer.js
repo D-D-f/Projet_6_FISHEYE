@@ -26,19 +26,19 @@ const getPhotographers = async () => {
     console.log(e);
   }
 };
-
+// filtre des dates
 const filtreAllDate = (date1, date2) => {
   const dateA = new Date(date1.date);
   const dateB = new Date(date2.date);
   return dateB - dateA;
 };
-
+// filtre des popularité
 const filtreAllPopular = (like1, like2) => {
   const likeA = like1.likes;
   const likeB = like2.likes;
   return likeB - likeA;
 };
-
+// filtre des titres
 const filtreAllTitle = (title1, title2) => {
   const titleA = title1.title.toUpperCase();
   const titleB = title2.title.toUpperCase();
@@ -50,7 +50,7 @@ const filtreAllTitle = (title1, title2) => {
   }
   return 0;
 };
-
+// Affichage des données selon le filtre
 const display = (array, index) => {
   if (index === 0) {
     array.sort(filtreAllPopular);
@@ -71,7 +71,7 @@ const display = (array, index) => {
     );
   });
 };
-
+// Permet de faire fonctionner le caroussel
 const caroussel = (array, index) => {
   let images = [];
   const imgCaroussel = document.querySelector("#imgCaroussel");
@@ -168,7 +168,7 @@ const caroussel = (array, index) => {
     imgCaroussel.src = `./assets/photo/${id}/${images[index]}`;
   }
 };
-
+// Permet d'ouvrir le caroussel
 const openCaroussel = (array, index) => {
   const pages = document.querySelector(".pages");
   const carousel = document.querySelector(".caroussel");
@@ -176,7 +176,7 @@ const openCaroussel = (array, index) => {
   carousel.style.display = "block";
   caroussel(array, index);
 };
-
+// Permet de gérer les likes
 const addLike = (element, like) => {
   const allLikes = document.querySelector(".alllikes");
 

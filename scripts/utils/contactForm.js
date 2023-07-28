@@ -1,10 +1,11 @@
+// permet d'ouvrir le formulaire
 function displayModal() {
   const modal = document.getElementById("contact_modal");
   const pages = document.querySelector(".pages");
   pages.style.display = "none";
   modal.style.display = "block";
 }
-
+// permet de fermer le formulaire
 function closeModal() {
   const modal = document.getElementById("contact_modal");
   const pages = document.querySelector(".pages");
@@ -13,7 +14,7 @@ function closeModal() {
 }
 
 const form = document.querySelector("form");
-
+// Événéments qui permet de récupérer les informations du formulaire
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
