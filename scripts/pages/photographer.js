@@ -108,7 +108,6 @@ const caroussel = (array, index) => {
       } else {
         imgCaroussel.style.display = "block";
         video.style.display = "none";
-        console.log(imgCaroussel);
         imgCaroussel.src = `./assets/photo/${id}/${images[index]}`;
       }
     }
@@ -126,7 +125,6 @@ const caroussel = (array, index) => {
       } else {
         imgCaroussel.style.display = "block";
         video.style.display = "none";
-        console.log(imgCaroussel);
         imgCaroussel.src = `./assets/photo/${id}/${images[index]}`;
       }
     } else {
@@ -138,7 +136,6 @@ const caroussel = (array, index) => {
       } else {
         imgCaroussel.style.display = "block";
         video.style.display = "none";
-        console.log(imgCaroussel);
         imgCaroussel.src = `./assets/photo/${id}/${images[index]}`;
       }
     }
@@ -164,7 +161,6 @@ const caroussel = (array, index) => {
   } else {
     imgCaroussel.style.display = "block";
     video.style.display = "none";
-    console.log(imgCaroussel);
     imgCaroussel.src = `./assets/photo/${id}/${images[index]}`;
   }
 };
