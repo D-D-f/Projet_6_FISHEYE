@@ -26,6 +26,5 @@ form.addEventListener("submit", (e) => {
     formValues[name] = value;
   }
 
-  console.log(formValues);
   closeModal();
 });
